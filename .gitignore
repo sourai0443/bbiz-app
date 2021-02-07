@@ -1,0 +1,12 @@
+# Editor
+.idea
+.vscode
+.DS_Store
+
+# Directories 
+node_modules
+build
+
+# Files
+npm-debug.log
+.env
