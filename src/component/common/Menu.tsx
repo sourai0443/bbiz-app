@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ReactNode, useState} from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -14,10 +14,30 @@ import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import {ListItem} from "@material-ui/core";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import LayersIcon from "@material-ui/icons/Layers";
-import ListItemText from "@material-ui/core/ListItemText";
+import SettingsIcon from '@material-ui/icons/Settings';
+import {PrimaryMenuList} from "./MenuList";
+import HomeIcon from '@material-ui/icons/Home';
+import ContactSupportIcon from '@material-ui/icons/ContactSupport';
+import ListAltIcon from '@material-ui/icons/ListAlt';
+import LinkIcon from '@material-ui/icons/Link';
+import {MenuList} from "./DataList";
+
+const iconList: ReactNode[] = [
+    <HomeIcon/>,
+    <ListAltIcon/>,
+    <ContactSupportIcon/>,
+    <LinkIcon/>
+];
+
+// イベントハンドラ仮置き
+// TODO: ReduxToolKit導入後修正必須。Storeで管理するため。
+const menuList: MenuList[] = [
+    new MenuList(1, "Home", () => {console.log("Home")},0),
+    new MenuList(2, "Task", () => {console.log("Task")},0),
+    new MenuList(3, "Question", () => {console.log("Question")},0),
+    new MenuList(4, "Link", () => {console.log("Link")},0)
+];
+
 
 const Copyright: React.FC = () => {
     return (
@@ -113,9 +133,11 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Dashboard: React.FC = () => {
+const Menu: React.FC = () => {
     const classes = useStyles();
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
+    const [title, setTitle] = useState("Home");
+
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -139,11 +161,16 @@ const Dashboard: React.FC = () => {
                         <MenuIcon />
                     </IconButton>
                     <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-                        Dashboard
+                        { title }
                     </Typography>
                     <IconButton color="inherit">
                         <Badge badgeContent={0} color="secondary">
                             <NotificationsIcon />
+                        </Badge>
+                    </IconButton>
+                    <IconButton color="inherit">
+                        <Badge badgeContent={0} color="secondary">
+                            <SettingsIcon />
                         </Badge>
                     </IconButton>
                 </Toolbar>
@@ -161,16 +188,11 @@ const Dashboard: React.FC = () => {
                     </IconButton>
                 </div>
                 <Divider />
-                <List></List>
+                <List>
+                    <PrimaryMenuList iconList={iconList} menuList={menuList} />
+                </List>
                 <Divider />
                 <List>
-                    {/*  アイコン付きテキスト表示例 */}
-                    {/*<ListItem button>*/}
-                    {/*    <ListItemIcon>*/}
-                    {/*        <LayersIcon />*/}
-                    {/*    </ListItemIcon>*/}
-                    {/*    <ListItemText primary={"test"} />*/}
-                    {/*</ListItem>*/}
                 </List>
             </Drawer>
             <main className={classes.content}>
@@ -179,4 +201,4 @@ const Dashboard: React.FC = () => {
     );
 };
 
-export default Dashboard;
+export default Menu;
