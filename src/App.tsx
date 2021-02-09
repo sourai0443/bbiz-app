@@ -1,12 +1,16 @@
 import React from 'react';
 import './App.css';
 import Menu from "./component/common/Menu";
+import {Provider} from "react-redux";
+import screenStore from "./store/ScreenStore";
 
 const App: React.FC = () => {
   return (
-    <div className="App">
-      <Menu />
-    </div>
+      <Provider store={screenStore}>
+        <div className="App">
+          <Menu />
+        </div>
+      </Provider>
   );
 };
 

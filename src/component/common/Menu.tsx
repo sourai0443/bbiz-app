@@ -21,7 +21,9 @@ import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import LinkIcon from '@material-ui/icons/Link';
 import {MenuList} from "./DataList";
+import {DefaultRootState, RootStateOrAny, useSelector} from "react-redux";
 
+// アイコンのリスト
 const iconList: ReactNode[] = [
     <HomeIcon/>,
     <ListAltIcon/>,
@@ -30,27 +32,12 @@ const iconList: ReactNode[] = [
 ];
 
 // イベントハンドラ仮置き
-// TODO: ReduxToolKit導入後修正必須。Storeで管理するため。
 const menuList: MenuList[] = [
     new MenuList(1, "Home", () => {console.log("Home")},0),
     new MenuList(2, "Task", () => {console.log("Task")},0),
     new MenuList(3, "Question", () => {console.log("Question")},0),
     new MenuList(4, "Link", () => {console.log("Link")},0)
 ];
-
-
-const Copyright: React.FC = () => {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://material-ui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-};
 
 const drawerWidth = 240;
 
@@ -136,7 +123,7 @@ const useStyles = makeStyles((theme) => ({
 const Menu: React.FC = () => {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
-    const [title, setTitle] = useState("Home");
+    const screen = useSelector((state: RootStateOrAny) => state.screen.name);
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -161,7 +148,7 @@ const Menu: React.FC = () => {
                         <MenuIcon />
                     </IconButton>
                     <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-                        { title }
+                        { screen }
                     </Typography>
                     <IconButton color="inherit">
                         <Badge badgeContent={0} color="secondary">
