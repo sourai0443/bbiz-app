@@ -2,6 +2,9 @@ export interface MenuListInterface {
     getId(): number,
     getTitle(): string,
     getBadge(): number,
+    isSelected(): boolean,
+    setSelected(select: boolean): void,
+
     onClicked(): () => void,
     setClickHandler(func: () => void): void,
     setBadge?(badge: number): void
@@ -10,12 +13,15 @@ export interface MenuListInterface {
 export class MenuList implements MenuListInterface{
     private id: number;
     private title: string;
+    private selected: boolean;
+
     private badge?: number | undefined;
     private onClickHandler: () => void;
 
-    constructor(id: number, title: string, onClickHandler: () => void, badge?: number | undefined) {
+    constructor(id: number, title: string, select: boolean, onClickHandler: () => void, badge?: number | undefined) {
         this.id = id;
         this.title = title;
+        this.selected = select;
         this.badge = badge;
         this.onClickHandler = onClickHandler;
     }
@@ -33,6 +39,14 @@ export class MenuList implements MenuListInterface{
             return -1;
         }
         return this.badge;
+    }
+
+    public isSelected(): boolean {
+        return this.selected;
+    }
+
+    public setSelected(select: boolean): void {
+        this.selected = select;
     }
 
     public setBadge(badge: number) {

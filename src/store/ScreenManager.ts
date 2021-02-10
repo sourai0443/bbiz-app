@@ -1,6 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
+    id:1,
     name: "Home",
 };
 
@@ -9,7 +10,7 @@ const slice = createSlice({
     initialState,
     reducers: {
         setScreen: (state, action) => {
-            return Object.assign({}, state, {name: action.payload})
+            return Object.assign({}, state, {id: action.payload.id, name: action.payload.name})
         },
     }
 });
