@@ -15,7 +15,9 @@ export const PrimaryMenuList: React.FC<{iconList: ReactNode[], menuList: MenuLis
         <div>
             {   iconList.map((icon, index) => {
                     return (
-                        <ListItem button onClick={() => dispatch(setScreen(menuList[index].getTitle()))}>
+                        <ListItem button selected={menuList[index].isSelected()} onClick={() => dispatch(setScreen( {id: menuList[index].getId(),
+                            name: menuList[index].getTitle()
+                        }))}>
                             <ListItemIcon>
                                 { icon }
                                 { menuList[index].getBadge() > 0 &&
