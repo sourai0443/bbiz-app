@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Menu from "./component/common/Menu";
+import Menu from "./component/menu/Menu";
 import {Provider} from "react-redux";
 import screenStore from "./store/ScreenStore";
 import useStyles from "./AppCommon.css";
