@@ -1,5 +1,5 @@
 import {combineReducers, configureStore} from "@reduxjs/toolkit";
-import screenReducer from './ScreenManager';
+import screenReducer from './ScreenSlice';
 
 const reducer = combineReducers({
     screen: screenReducer,

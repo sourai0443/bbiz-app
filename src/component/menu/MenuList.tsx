@@ -6,7 +6,7 @@ import NotificationsIcon from "@material-ui/core/SvgIcon/SvgIcon";
 import Badge from "@material-ui/core/Badge";
 import {MenuListInterface} from "./DataList";
 import {useDispatch} from "react-redux";
-import {setScreen} from "../../store/ScreenManager";
+import {setScreen} from "../../store/ScreenSlice";
 
 export const PrimaryMenuList: React.FC<{iconList: ReactNode[], menuList: MenuListInterface[]}> = ({iconList, menuList}) => {
     const dispatch = useDispatch();
