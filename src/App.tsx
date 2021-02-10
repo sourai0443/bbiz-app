@@ -3,15 +3,20 @@ import './App.css';
 import Menu from "./component/common/Menu";
 import {Provider} from "react-redux";
 import screenStore from "./store/ScreenStore";
+import useStyles from "./AppCommon.css";
 
 const App: React.FC = () => {
-  return (
-      <Provider store={screenStore}>
-        <div className="App">
-          <Menu />
-        </div>
-      </Provider>
-  );
+    const classes = useStyles();
+
+    return (
+        <Provider store={screenStore}>
+            <div className="App">
+                <Menu />
+                <main className={classes.content}>
+                </main>
+            </div>
+        </Provider>
+    );
 };
 
 export default App;
