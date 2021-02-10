@@ -20,7 +20,7 @@ import ListAltIcon from '@material-ui/icons/ListAlt';
 import LinkIcon from '@material-ui/icons/Link';
 import {MenuList} from "./DataList";
 import {RootStateOrAny, useSelector} from "react-redux";
-import useStyles from "./MenuCommonStyle";
+import useStyles from "./MenuCommon.css";
 
 // アイコンのリスト
 const iconList: ReactNode[] = [
