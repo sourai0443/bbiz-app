@@ -32,17 +32,24 @@ const iconList: ReactNode[] = [
 
 // イベントハンドラ仮置き
 const menuList: MenuList[] = [
-    new MenuList(1, "Home", () => {console.log("Home")},0),
-    new MenuList(2, "Task", () => {console.log("Task")},0),
-    new MenuList(3, "Question", () => {console.log("Question")},0),
-    new MenuList(4, "Link", () => {console.log("Link")},0)
+    new MenuList(1, "Home", false,() => {console.log("Home")}),
+    new MenuList(2, "Task", false, () => {console.log("Task")},0),
+    new MenuList(3, "Question", false, () => {console.log("Question")},0),
+    new MenuList(4, "Link", false, () => {console.log("Link")},0)
 ];
 
+let prevScreenId: number;
 
 const Menu: React.FC = () => {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
-    const screen = useSelector((state: RootStateOrAny) => state.screen.name);
+    const screen = useSelector((state: RootStateOrAny) => state.screen);
+
+    menuList[screen.id - 1].setSelected(true);
+    if (prevScreenId !== undefined && prevScreenId !== screen.id) {
+        menuList[prevScreenId - 1].setSelected(false);
+    }
+    prevScreenId = screen.id;
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -67,7 +74,7 @@ const Menu: React.FC = () => {
                         <MenuIcon />
                     </IconButton>
                     <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-                        { screen }
+                        { screen.name }
                     </Typography>
                     <IconButton color="inherit">
                         <Badge badgeContent={0} color="secondary">
