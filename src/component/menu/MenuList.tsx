@@ -13,16 +13,16 @@ export const PrimaryMenuList: React.FC<{iconList: ReactNode[], menuList: MenuLis
 
     return (
         <div>
-            {   iconList.map((icon, index) => {
+            {   iconList.map((icon, index) => { const menuListItem: MenuListInterface = menuList[index];
                     return (
-                        <ListItem button selected={menuList[index].isSelected()} key={index}
-                                  onClick={() => dispatch(setScreen( {id: menuList[index].getId(), name: menuList[index].getTitle()
+                        <ListItem button selected={menuListItem.isSelected()} key={index}
+                                  onClick={() => dispatch(setScreen( {id: menuListItem.getId(), name: menuListItem.getTitle()
                                 }))}
                         >
                             <ListItemIcon>
                                 { icon }
-                                { menuList[index].getBadge() > 0 &&
-                                        <Badge badgeContent={menuList[index].getBadge()} color="secondary">
+                                { menuListItem.getBadge() > 0 &&
+                                        <Badge badgeContent={menuListItem.getBadge()} color="secondary">
                                             <NotificationsIcon />
                                         </Badge>
                                 }
