@@ -68,8 +68,8 @@ const Menu: React.FC<{changeTheme: (mode: boolean) => void, isDarkTheme: boolean
     return (
         <>
             <CssBaseline />
-            <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
-                <Toolbar className={classes.toolbar}>
+            <AppBar position="absolute" color={props.isDarkTheme ? "inherit" : "primary"} className={clsx(classes.appBar, open && classes.appBarShift)}>
+                <Toolbar className={classes.toolbar} >
                     <IconButton
                         edge="start"
                         color="inherit"
