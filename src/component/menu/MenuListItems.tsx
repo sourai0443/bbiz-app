@@ -17,7 +17,7 @@ export const primaryListIcons: ReactNode[] = [
 // メイン機能のデータ定義
 // イベントハンドラは仮置きの定義
 export const primaryListItems: MenuListItem[] = [
-    new MenuListItem(1, "Home", false,() => {console.log("Home")}, 0),
+    new MenuListItem(1, "Home", false,() => {console.log("Home")}),
     new MenuListItem(2, "Task", false, () => {console.log("Task")},5),
     new MenuListItem(3, "Question", false, () => {console.log("Question")},10),
     new MenuListItem(4, "Link", false, () => {console.log("Link")},100)

@@ -26,7 +26,7 @@ class MenuListItem implements MenuListItemInterface{
 
     public getBadge(): number {
         if (this.badge === undefined) {
-            return -1;
+            return 0;
         }
         return this.badge;
     }
