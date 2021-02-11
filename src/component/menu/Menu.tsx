@@ -12,7 +12,6 @@ import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import SettingsIcon from '@material-ui/icons/Settings';
 import {PrimaryMenuList} from "./MenuList";
 import HomeIcon from '@material-ui/icons/Home';
 import ContactSupportIcon from '@material-ui/icons/ContactSupport';
@@ -21,6 +20,10 @@ import LinkIcon from '@material-ui/icons/Link';
 import {MenuList} from "./DataList";
 import {RootStateOrAny, useSelector} from "react-redux";
 import useStyles from "./MenuCommon.css";
+import {ListSubheader} from "@material-ui/core";
+import BrightnessHighIcon from '@material-ui/icons/BrightnessHigh';
+import BrightnessLowIcon from '@material-ui/icons/BrightnessLow';
+import MouseOverPopover from "../mouseOverComponent/mouseOverPopup";
 
 // アイコンのリスト
 const iconList: ReactNode[] = [
@@ -32,18 +35,19 @@ const iconList: ReactNode[] = [
 
 // イベントハンドラ仮置き
 const menuList: MenuList[] = [
-    new MenuList(1, "Home", false,() => {console.log("Home")}),
-    new MenuList(2, "Task", false, () => {console.log("Task")},0),
-    new MenuList(3, "Question", false, () => {console.log("Question")},0),
-    new MenuList(4, "Link", false, () => {console.log("Link")},0)
+    new MenuList(1, "Home", false,() => {console.log("Home")}, 0),
+    new MenuList(2, "Task", false, () => {console.log("Task")},5),
+    new MenuList(3, "Question", false, () => {console.log("Question")},10),
+    new MenuList(4, "Link", false, () => {console.log("Link")},100)
 ];
 
 let prevScreenId: number;
 
-const Menu: React.FC = () => {
+const Menu: React.FC<{changeTheme: (mode: boolean) => void, isDarkTheme: boolean}> = (props) => {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
     const screen = useSelector((state: RootStateOrAny) => state.screen);
+    const currentScreen = menuList[screen.id - 1];
 
     menuList[screen.id - 1].setSelected(true);
     if (prevScreenId !== undefined && prevScreenId !== screen.id) {
@@ -57,10 +61,12 @@ const Menu: React.FC = () => {
     const handleDrawerClose = () => {
         setOpen(false);
     };
-    // const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+    const toggleTheme = () => {
+        props.changeTheme(!props.isDarkTheme)
+    };
 
     return (
-        <div className={classes.root}>
+        <>
             <CssBaseline />
             <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
                 <Toolbar className={classes.toolbar}>
@@ -77,14 +83,22 @@ const Menu: React.FC = () => {
                         { screen.name }
                     </Typography>
                     <IconButton color="inherit">
-                        <Badge badgeContent={0} color="secondary">
+                        <Badge badgeContent={currentScreen.getBadge()} color="secondary">
                             <NotificationsIcon />
                         </Badge>
                     </IconButton>
-                    <IconButton color="inherit">
-                        <Badge badgeContent={0} color="secondary">
-                            <SettingsIcon />
+                    <IconButton color="inherit" onClick={toggleTheme}>
+                        <MouseOverPopover text={
+                            `Toggle to ${props.isDarkTheme ? "light" : "dark "} theme.`
+                        }>
+                        <Badge color="secondary">
+                            {   props.isDarkTheme ?
+                                    <BrightnessHighIcon />
+                                :
+                                    <BrightnessLowIcon />
+                            }
                         </Badge>
+                        </MouseOverPopover>
                     </IconButton>
                 </Toolbar>
             </AppBar>
@@ -101,14 +115,16 @@ const Menu: React.FC = () => {
                     </IconButton>
                 </div>
                 <Divider />
-                <List>
+                <List >
+                    <ListSubheader hidden={!open}>Main Apps</ListSubheader>
                     <PrimaryMenuList iconList={iconList} menuList={menuList} />
                 </List>
                 <Divider />
                 <List>
+                    <ListSubheader inset></ListSubheader>
                 </List>
             </Drawer>
-        </div>
+        </>
     );
 };
 
