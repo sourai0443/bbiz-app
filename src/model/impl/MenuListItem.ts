@@ -1,16 +1,6 @@
-export interface MenuListInterface {
-    getId(): number,
-    getTitle(): string,
-    getBadge(): number,
-    isSelected(): boolean,
-    setSelected(select: boolean): void,
+import MenuListItemInterface from "../MenuListItemInterface";
 
-    onClicked(): () => void,
-    setClickHandler(func: () => void): void,
-    setBadge?(badge: number): void
-}
-
-export class MenuList implements MenuListInterface{
+class MenuListItem implements MenuListItemInterface{
     private id: number;
     private title: string;
     private selected: boolean;
@@ -61,3 +51,5 @@ export class MenuList implements MenuListInterface{
         this.onClickHandler = func;
     }
 }
+
+export default MenuListItem;

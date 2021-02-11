@@ -17,7 +17,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import LinkIcon from '@material-ui/icons/Link';
-import {MenuList} from "./DataList";
+import MenuListItem from "../../model/impl/MenuListItem";
 import {RootStateOrAny, useSelector} from "react-redux";
 import useStyles from "./MenuCommon.css";
 import {ListSubheader} from "@material-ui/core";
@@ -34,11 +34,11 @@ const iconList: ReactNode[] = [
 ];
 
 // イベントハンドラ仮置き
-const menuList: MenuList[] = [
-    new MenuList(1, "Home", false,() => {console.log("Home")}, 0),
-    new MenuList(2, "Task", false, () => {console.log("Task")},5),
-    new MenuList(3, "Question", false, () => {console.log("Question")},10),
-    new MenuList(4, "Link", false, () => {console.log("Link")},100)
+const menuList: MenuListItem[] = [
+    new MenuListItem(1, "Home", false,() => {console.log("Home")}, 0),
+    new MenuListItem(2, "Task", false, () => {console.log("Task")},5),
+    new MenuListItem(3, "Question", false, () => {console.log("Question")},10),
+    new MenuListItem(4, "Link", false, () => {console.log("Link")},100)
 ];
 
 let prevScreenId: number;
