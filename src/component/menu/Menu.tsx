@@ -12,34 +12,14 @@ import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import {PrimaryMenuList} from "./MenuList";
-import HomeIcon from '@material-ui/icons/Home';
-import ContactSupportIcon from '@material-ui/icons/ContactSupport';
-import ListAltIcon from '@material-ui/icons/ListAlt';
-import LinkIcon from '@material-ui/icons/Link';
-import MenuListItem from "../../model/impl/MenuListItem";
+import {MenuList} from "./MenuList";
 import {RootStateOrAny, useSelector} from "react-redux";
 import useStyles from "./MenuCommon.css";
 import {ListSubheader} from "@material-ui/core";
 import BrightnessHighIcon from '@material-ui/icons/BrightnessHigh';
 import BrightnessLowIcon from '@material-ui/icons/BrightnessLow';
 import MouseOverPopover from "../common/mouseOverPopup";
-
-// アイコンのリスト
-const iconList: ReactNode[] = [
-    <HomeIcon/>,
-    <ListAltIcon/>,
-    <ContactSupportIcon/>,
-    <LinkIcon/>
-];
-
-// イベントハンドラ仮置き
-const menuList: MenuListItem[] = [
-    new MenuListItem(1, "Home", false,() => {console.log("Home")}, 0),
-    new MenuListItem(2, "Task", false, () => {console.log("Task")},5),
-    new MenuListItem(3, "Question", false, () => {console.log("Question")},10),
-    new MenuListItem(4, "Link", false, () => {console.log("Link")},100)
-];
+import {primaryListIcons, primaryListItems} from "./MenuListItems";
 
 let prevScreenId: number;
 
@@ -47,11 +27,11 @@ const Menu: React.FC<{changeTheme: (mode: boolean) => void, isDarkTheme: boolean
     const classes = useStyles();
     const [open, setOpen] = useState(false);
     const screen = useSelector((state: RootStateOrAny) => state.screen);
-    const currentScreen = menuList[screen.id - 1];
+    const currentScreen = primaryListItems[screen.id - 1];
 
-    menuList[screen.id - 1].setSelected(true);
+    primaryListItems[screen.id - 1].setSelected(true);
     if (prevScreenId !== undefined && prevScreenId !== screen.id) {
-        menuList[prevScreenId - 1].setSelected(false);
+        primaryListItems[prevScreenId - 1].setSelected(false);
     }
     prevScreenId = screen.id;
 
@@ -117,7 +97,7 @@ const Menu: React.FC<{changeTheme: (mode: boolean) => void, isDarkTheme: boolean
                 <Divider />
                 <List >
                     <ListSubheader hidden={!open}>Main Apps</ListSubheader>
-                    <PrimaryMenuList iconList={iconList} menuList={menuList} />
+                    <MenuList iconList={primaryListIcons} menuList={primaryListItems} />
                 </List>
                 <Divider />
                 <List>

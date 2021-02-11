@@ -8,7 +8,7 @@ import MenuListItemInterface from "../../model/MenuListItemInterface";
 import {useDispatch} from "react-redux";
 import {setScreen} from "../../store/ScreenSlice";
 
-export const PrimaryMenuList: React.FC<{iconList: ReactNode[], menuList: MenuListItemInterface[]}> = ({iconList, menuList}) => {
+export const MenuList: React.FC<{iconList: ReactNode[], menuList: MenuListItemInterface[]}> = ({iconList, menuList}) => {
     const dispatch = useDispatch();
 
     return (
