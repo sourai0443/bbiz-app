@@ -91,13 +91,13 @@ const Menu: React.FC<{changeTheme: (mode: boolean) => void, isDarkTheme: boolean
                         <MouseOverPopover text={
                             `Toggle to ${props.isDarkTheme ? "light" : "dark "} theme.`
                         }>
-                        <Badge color="secondary">
-                            {   props.isDarkTheme ?
-                                    <BrightnessHighIcon />
-                                :
-                                    <BrightnessLowIcon />
-                            }
-                        </Badge>
+                            <Badge color="secondary">
+                                {   props.isDarkTheme ?
+                                        <BrightnessHighIcon />
+                                    :
+                                        <BrightnessLowIcon />
+                                }
+                            </Badge>
                         </MouseOverPopover>
                     </IconButton>
                 </Toolbar>
