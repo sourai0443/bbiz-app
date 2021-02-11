@@ -2,7 +2,6 @@ import React, {ReactNode} from "react";
 import {ListItemIcon} from "@material-ui/core";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItem from "@material-ui/core/ListItem";
-import NotificationsIcon from "@material-ui/core/SvgIcon/SvgIcon";
 import Badge from "@material-ui/core/Badge";
 import MenuListItemInterface from "../../model/MenuListItemInterface";
 import {useDispatch} from "react-redux";
@@ -23,7 +22,6 @@ export const MenuList: React.FC<{iconList: ReactNode[], menuList: MenuListItemIn
                                 { icon }
                                 { menuListItem.getBadge() > 0 &&
                                         <Badge badgeContent={menuListItem.getBadge()} color="secondary">
-                                            <NotificationsIcon />
                                         </Badge>
                                 }
                             </ListItemIcon>
