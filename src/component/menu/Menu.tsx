@@ -23,7 +23,7 @@ import useStyles from "./MenuCommon.css";
 import {ListSubheader} from "@material-ui/core";
 import BrightnessHighIcon from '@material-ui/icons/BrightnessHigh';
 import BrightnessLowIcon from '@material-ui/icons/BrightnessLow';
-import MouseOverPopover from "../mouseOverComponent/mouseOverPopup";
+import MouseOverPopover from "../common/mouseOverPopup";
 
 // アイコンのリスト
 const iconList: ReactNode[] = [
