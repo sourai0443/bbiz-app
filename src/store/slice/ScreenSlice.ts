@@ -15,5 +15,7 @@ const slice = createSlice({
     }
 });
 
-export default slice.reducer;
+const screenReducer = slice.reducer;
+
 export const {setScreen} = slice.actions;
+export default screenReducer;
