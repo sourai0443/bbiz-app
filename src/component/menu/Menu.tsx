@@ -1,4 +1,4 @@
-import React, {ReactNode, useState} from 'react';
+import React, {ReactNode, useEffect, useState} from 'react';
 import clsx from 'clsx';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
@@ -13,20 +13,24 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import {MenuList} from "./MenuList";
-import {RootStateOrAny, useSelector} from "react-redux";
+import {RootStateOrAny, useDispatch, useSelector} from "react-redux";
 import useStyles from "./MenuCommon.css";
 import {ListSubheader} from "@material-ui/core";
 import BrightnessHighIcon from '@material-ui/icons/BrightnessHigh';
 import BrightnessLowIcon from '@material-ui/icons/BrightnessLow';
 import MouseOverPopover from "../common/mouseOverPopup";
 import {primaryListIcons, primaryListItems} from "./MenuListItems";
+import {setDisplayMode} from "../../store/slice/DisplayModeSlice";
 
 let prevScreenId: number;
 
-const Menu: React.FC<{changeTheme: (mode: boolean) => void, isDarkTheme: boolean}> = (props) => {
+const Menu: React.FC<{changeTheme: (mode: boolean) => void}> = (props) => {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
-    const screen = useSelector((state: RootStateOrAny) => state.screen);
+    const screen = useSelector((state: RootStateOrAny) => state.screenReducer);
+    const displayMode = useSelector((state: RootStateOrAny) => state.displayModeReducer);
+    const dispatch = useDispatch();
+
     const currentScreen = primaryListItems[screen.id - 1];
 
     primaryListItems[screen.id - 1].setSelected(true);
@@ -35,26 +39,36 @@ const Menu: React.FC<{changeTheme: (mode: boolean) => void, isDarkTheme: boolean
     }
     prevScreenId = screen.id;
 
-    const handleDrawerOpen = () => {
-        setOpen(true);
+    // 初期表示
+    useEffect(() => {
+        props.changeTheme(displayMode.isDarkMode);
+        setOpen(displayMode.isOpen);
+    }, []);
+
+    const toggleDrawer = () => {
+        setOpen(!open);
+        dispatch(setDisplayMode({
+            isOpen: !open,
+        }));
     };
-    const handleDrawerClose = () => {
-        setOpen(false);
-    };
+
     const toggleTheme = () => {
-        props.changeTheme(!props.isDarkTheme)
+        dispatch(setDisplayMode({
+            isDarkMode: !displayMode.isDarkMode,
+        }));
+        props.changeTheme(!displayMode.isDarkMode);
     };
 
     return (
         <>
             <CssBaseline />
-            <AppBar position="absolute" color={props.isDarkTheme ? "inherit" : "primary"} className={clsx(classes.appBar, open && classes.appBarShift)}>
+            <AppBar position="absolute" color={displayMode.isDarkMode ? "inherit" : "primary"} className={clsx(classes.appBar, open && classes.appBarShift)}>
                 <Toolbar className={classes.toolbar} >
                     <IconButton
                         edge="start"
                         color="inherit"
                         aria-label="open drawer"
-                        onClick={handleDrawerOpen}
+                        onClick={toggleDrawer}
                         className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
                     >
                         <MenuIcon />
@@ -69,10 +83,10 @@ const Menu: React.FC<{changeTheme: (mode: boolean) => void, isDarkTheme: boolean
                     </IconButton>
                     <IconButton color="inherit" onClick={toggleTheme}>
                         <MouseOverPopover text={
-                            `Toggle to ${props.isDarkTheme ? "light" : "dark "} theme.`
+                            `Toggle to ${displayMode.isDarkMode ? "light" : "dark "} theme.`
                         }>
                             <Badge color="secondary">
-                                {   props.isDarkTheme ?
+                                {   displayMode.isDarkMode ?
                                         <BrightnessHighIcon />
                                     :
                                         <BrightnessLowIcon />
@@ -90,7 +104,7 @@ const Menu: React.FC<{changeTheme: (mode: boolean) => void, isDarkTheme: boolean
                 open={open}
             >
                 <div className={classes.toolbarIcon}>
-                    <IconButton onClick={handleDrawerClose}>
+                    <IconButton onClick={toggleDrawer}>
                         <ChevronLeftIcon />
                     </IconButton>
                 </div>
