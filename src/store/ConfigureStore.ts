@@ -1,23 +1,12 @@
-import {combineReducers, compose} from 'redux'
+// 参考: https://zenn.dev/nus3/articles/c2d86097029c12285680
+import {combineReducers} from 'redux'
 import { persistReducer, persistStore } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
-import {combinedScreenReducer} from './ScreenStore';
 import {configureStore, getDefaultMiddleware} from "@reduxjs/toolkit";
 import {FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE} from "redux-persist/es/constants";
-import {combinedDisplayModeReducer} from "./DisplayModeStore";
 import screenReducer from "./slice/ScreenSlice";
 import displayModeReducer from "./slice/DisplayModeSlice";
-
-/**
- * redux-dev-toolsをTSで使うための記載
- * https://qiita.com/AshSuzuki/items/111d5a7c5d30fd1123c3
- */
-interface ExtendedWindow extends Window {
-    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
-}
-declare var window: ExtendedWindow;
-// const composeReduxDevToolsEnhancers = typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 // 永続化の設定
 const persistConfig = {

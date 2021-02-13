@@ -1,4 +1,4 @@
-import React, {ReactNode, useEffect, useState} from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
@@ -24,9 +24,8 @@ import {setDisplayMode} from "../../store/slice/DisplayModeSlice";
 
 let prevScreenId: number;
 
-const Menu: React.FC<{changeTheme: (mode: boolean) => void}> = (props) => {
+const Menu: React.FC = (props) => {
     const classes = useStyles();
-    const [open, setOpen] = useState(false);
     const screen = useSelector((state: RootStateOrAny) => state.screenReducer);
     const displayMode = useSelector((state: RootStateOrAny) => state.displayModeReducer);
     const dispatch = useDispatch();
@@ -39,16 +38,9 @@ const Menu: React.FC<{changeTheme: (mode: boolean) => void}> = (props) => {
     }
     prevScreenId = screen.id;
 
-    // 初期表示
-    useEffect(() => {
-        props.changeTheme(displayMode.isDarkMode);
-        setOpen(displayMode.isOpen);
-    }, []);
-
     const toggleDrawer = () => {
-        setOpen(!open);
         dispatch(setDisplayMode({
-            isOpen: !open,
+            isOpen: !displayMode.isOpen,
         }));
     };
 
@@ -56,20 +48,19 @@ const Menu: React.FC<{changeTheme: (mode: boolean) => void}> = (props) => {
         dispatch(setDisplayMode({
             isDarkMode: !displayMode.isDarkMode,
         }));
-        props.changeTheme(!displayMode.isDarkMode);
     };
 
     return (
         <>
             <CssBaseline />
-            <AppBar position="absolute" color={displayMode.isDarkMode ? "inherit" : "primary"} className={clsx(classes.appBar, open && classes.appBarShift)}>
+            <AppBar position="absolute" color={displayMode.isDarkMode ? "inherit" : "primary"} className={clsx(classes.appBar, displayMode.isOpen && classes.appBarShift)}>
                 <Toolbar className={classes.toolbar} >
                     <IconButton
                         edge="start"
                         color="inherit"
                         aria-label="open drawer"
                         onClick={toggleDrawer}
-                        className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
+                        className={clsx(classes.menuButton, displayMode.isOpen && classes.menuButtonHidden)}
                     >
                         <MenuIcon />
                     </IconButton>
@@ -99,9 +90,9 @@ const Menu: React.FC<{changeTheme: (mode: boolean) => void}> = (props) => {
             <Drawer
                 variant="permanent"
                 classes={{
-                    paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+                    paper: clsx(classes.drawerPaper, !displayMode.isOpen && classes.drawerPaperClose),
                 }}
-                open={open}
+                open={displayMode.isOpen}
             >
                 <div className={classes.toolbarIcon}>
                     <IconButton onClick={toggleDrawer}>
@@ -110,7 +101,7 @@ const Menu: React.FC<{changeTheme: (mode: boolean) => void}> = (props) => {
                 </div>
                 <Divider />
                 <List >
-                    <ListSubheader hidden={!open}>Main Apps</ListSubheader>
+                    <ListSubheader hidden={!displayMode.isOpen}>Main Apps</ListSubheader>
                     <MenuList iconList={primaryListIcons} menuList={primaryListItems} />
                 </List>
                 <Divider />
