@@ -1,13 +1,20 @@
 import React from "react";
 import useStyles from "./MainCommon.css";
-import {RootStateOrAny, useSelector} from "react-redux";
+import {Container} from "@material-ui/core";
 
-const Main: React.FC = () => {
+const Main: React.FC = (props) => {
     const classes = useStyles();
-    const screen = useSelector((state: RootStateOrAny) => state.screen);
 
     return (
         <main className={classes.content}>
+            <div className={classes.appBarSpacer} />
+            <Container maxWidth="lg" className={classes.container}>
+                <>
+                    {
+                        props.children
+                    }
+                </>
+            </Container>
         </main>
     )
 };

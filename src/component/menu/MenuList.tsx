@@ -5,7 +5,7 @@ import ListItem from "@material-ui/core/ListItem";
 import Badge from "@material-ui/core/Badge";
 import MenuListItemInterface from "../../model/MenuListItemInterface";
 import {useDispatch} from "react-redux";
-import {setScreen} from "../../store/ScreenSlice";
+import {setScreen} from "../../store/slice/ScreenSlice";
 
 export const MenuList: React.FC<{iconList: ReactNode[], menuList: MenuListItemInterface[]}> = ({iconList, menuList}) => {
     const dispatch = useDispatch();
