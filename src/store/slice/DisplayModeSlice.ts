@@ -3,6 +3,7 @@ import {createSlice} from "@reduxjs/toolkit";
 const initialState = {
     isDarkMode: false,
     isOpen: false,
+    isOpenDialog: false,
 };
 
 const slice = createSlice({

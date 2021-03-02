@@ -7,18 +7,20 @@ import {configureStore, getDefaultMiddleware} from "@reduxjs/toolkit";
 import {FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE} from "redux-persist/es/constants";
 import screenReducer from "./slice/ScreenSlice";
 import displayModeReducer from "./slice/DisplayModeSlice";
+import linkReducer from "./slice/LinkSlice";
 
 // 永続化の設定
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ["screenReducer", "displayModeReducer"],
+    whitelist: ["screenReducer", "displayModeReducer", "linkReducer"],
     // blacklist: [''], // 永続化しないState名を指定
 };
 
 const combinedReducer = combineReducers({
     screenReducer,
     displayModeReducer,
+    linkReducer,
 });
 
 // 永続化設定されたReducerとして定義

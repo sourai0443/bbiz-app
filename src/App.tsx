@@ -7,6 +7,7 @@ import useStyles from "./AppCommon.css";
 import {PersistGate} from "redux-persist/integration/react";
 import store ,{persistor} from "./store/ConfigureStore";
 import ThemeWrapper from "./component/themeWrapper/ThemeWrapper";
+import LinkView from "./component/link/LinkView";
 
 const App: React.FC = () => {
     const classes = useStyles();
@@ -17,7 +18,11 @@ const App: React.FC = () => {
                 <ThemeWrapper>
                     <div className={`App  ${classes.root}`} >
                         <Menu />
-                        <Main></Main>
+                        <Main>
+                            {
+                                <LinkView />
+                            }
+                        </Main>
                     </div>
                 </ThemeWrapper>
             </PersistGate>
