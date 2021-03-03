@@ -1,15 +1,15 @@
 import AppDataInterface from "../AppDataInterface";
 
 class LinkModel implements AppDataInterface {
-    private id: number;
-    private title: string;
-    private detail: string;
+    public id: number;
+    public title: string;
+    public detail: string;
 
-    private createdAt: Date;
-    private updatedAt: Date;
+    public createdAt: Date;
+    public updatedAt: Date;
 
-    private path: string;
-    private linkType: string;
+    public path: string;
+    public linkType: string;
 
     constructor(id: number, detail: string, title: string, createdAt: Date, updatedAt: Date, path: string, linkType: string) {
         this.id = id;

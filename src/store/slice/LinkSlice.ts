@@ -8,7 +8,7 @@ const initialState = {
         new LinkModel(3, "detail3", "Title", new Date(), new Date(), "https://yahoo.co.jp", "URL"),
         new LinkModel(4, "detail4", "Title", new Date(), new Date(), "https://google.com", "URL"),
         new LinkModel(5, "detail5", "Title", new Date(), new Date(), "https://yahoo.co.jp", "URL"),
-    ]
+    ],
 };
 
 const slice = createSlice({
