@@ -3,11 +3,11 @@ import LinkModel from "../../model/impl/LinkModel";
 
 const initialState = {
     links: [
-        new LinkModel(1, "detail1", "Title", new Date(), new Date(), "https://yahoo.co.jp", "URL"),
-        new LinkModel(2, "detail2", "Title", new Date(), new Date(), "https://google.com", "URL"),
-        new LinkModel(3, "detail3", "Title", new Date(), new Date(), "https://yahoo.co.jp", "URL"),
-        new LinkModel(4, "detail4", "Title", new Date(), new Date(), "https://google.com", "URL"),
-        new LinkModel(5, "detail5", "Title", new Date(), new Date(), "https://yahoo.co.jp", "URL"),
+        new LinkModel(1, "detail1", "Title", new Date().toLocaleDateString(), new Date().toLocaleDateString(), "https://yahoo.co.jp", "URL"),
+        new LinkModel(2, "detail2", "Title", new Date().toLocaleDateString(), new Date().toLocaleDateString(), "https://google.com", "URL"),
+        new LinkModel(3, "detail3", "Title", new Date().toLocaleDateString(), new Date().toLocaleDateString(), "https://yahoo.co.jp", "URL"),
+        new LinkModel(4, "detail4", "Title", new Date().toLocaleDateString(), new Date().toLocaleDateString(), "https://google.com", "URL"),
+        new LinkModel(5, "detail5", "Title", new Date().toLocaleDateString(), new Date().toLocaleDateString(), "https://yahoo.co.jp", "URL"),
     ],
 };
 

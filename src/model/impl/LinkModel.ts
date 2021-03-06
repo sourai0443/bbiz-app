@@ -1,17 +1,21 @@
 import AppDataInterface from "../AppDataInterface";
 
+/*
+* TODO: LinkViewコンポーネントでレンダリングする際に、getter/setterが認識されていないため、プロパティ全てをprivateからpublicに変更して対応
+*  それに関連して、updatedAt、createdAtをDateクラスからstringへと変更
+*/
 class LinkModel implements AppDataInterface {
     public id: number;
     public title: string;
     public detail: string;
 
-    public createdAt: Date;
-    public updatedAt: Date;
+    public createdAt: string;
+    public updatedAt: string;
 
     public path: string;
     public linkType: string;
 
-    constructor(id: number, detail: string, title: string, createdAt: Date, updatedAt: Date, path: string, linkType: string) {
+    constructor(id: number, detail: string, title: string, createdAt: string, updatedAt: string, path: string, linkType: string) {
         this.id = id;
         this.title = title;
         this.detail = detail;
@@ -47,19 +51,19 @@ class LinkModel implements AppDataInterface {
         this.detail = value;
     }
 
-    public getCreatedAt(): Date {
+    public getCreatedAt(): string {
         return this.createdAt;
     }
 
-    public setCreatedAt(value: Date): void {
+    public setCreatedAt(value: string): void {
         this.createdAt = value;
     }
 
-    public getUpdatedAt(): Date {
+    public getUpdatedAt(): string {
         return this.updatedAt;
     }
 
-    public setUpdatedAt(value: Date): void {
+    public setUpdatedAt(value: string): void {
         this.updatedAt = value;
     }
 

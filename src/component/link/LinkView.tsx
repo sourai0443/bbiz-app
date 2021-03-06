@@ -32,14 +32,6 @@ const selectItems = [
     }
 ];
 
-const dummyData: LinkModel[] = [
-    new LinkModel(1, "detail1", "Title", new Date(), new Date(), "https://yahoo.co.jp", "URL"),
-    new LinkModel(2, "detail2", "Title", new Date(), new Date(), "https://google.com", "URL"),
-    new LinkModel(3, "detail3", "Title", new Date(), new Date(), "https://yahoo.co.jp", "URL"),
-    new LinkModel(4, "detail4", "Title", new Date(), new Date(), "https://google.com", "URL"),
-    new LinkModel(5, "detail5", "Title", new Date(), new Date(), "https://yahoo.co.jp", "URL"),
-];
-
 const APP_BAR_HEIGHT = 64;
 const CONTENT_HEADER_HEIGHT = 110;
 const PADDING_TOP_BOTTOM = 32;
@@ -59,10 +51,14 @@ const LinkView: React.FC = () => {
     const dispatch = useDispatch();
     const screen = useSelector((state: RootStateOrAny) => state.screenReducer);
     const display = useSelector((state: RootStateOrAny) => state.displayModeReducer);
-    const linkData = useSelector((state: RootStateOrAny) => state.linkReducer);
+    const linkData = useSelector((state: RootStateOrAny) => {
+        console.log(state.linkReducer.links[0]);
+        return state.linkReducer;
+    });
 
     const [regex, setRegex] = useState("");
     const [linkType, setLinkType] = useState("");
+    const [links, setLinks] = useState<LinkModel[]>([]);
 
     const classes = useStyle();
 
@@ -79,13 +75,6 @@ const LinkView: React.FC = () => {
             isOpenDialog: !display.isOpenDialog,
         }))
     };
-
-
-    useEffect(() => {
-        dummyData.push(
-            new LinkModel(0, "test", "test", new Date(), new Date(), "", "")
-        );
-    });
 
     const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         // dummyData[0].detail = e.currentTarget.value;
@@ -165,38 +154,38 @@ const LinkView: React.FC = () => {
         </Grid>
         <hr />
         <Grid container spacing={3} className={classes.mainContent}>
-            {   dummyData.map((obj: LinkModel, index: number) => {
+            {   linkData.links.map((obj: LinkModel, index: number) => {
                     return (
                         <>
                             <Grid item xs={12} md={8} key={`main_card_${index}`}>
                                 <Card variant="outlined" draggable>
-                                    {/* TODO: objがObject型になっている。 LinkModelクラスにする必要がある。ライフサイクルを確認？ */}
-                                    <Link href={obj.getPath()} target={"_blank"} color={"inherit"} underline={"none"}>
+                                    {/* TODO: レンダリング時、objがObjectクラスになっている。ライフサイクルメソッドを確認して修正する。現在は、各プロパティのアクセス権をpublicにして対応。 */}
+                                    <Link href={obj.path} target={"_blank"} color={"inherit"} underline={"none"}>
                                         <CardContent style={{"paddingBottom": "4px"}}>
                                             <Typography  color="textSecondary" gutterBottom>
                                                 {
-                                                    obj.getTitle()
+                                                    obj.title
                                                 }
                                             </Typography>
                                             <Divider />
                                             <Typography  color="textSecondary" gutterBottom>
                                                 {
-                                                    obj.getDetail()
+                                                    obj.detail
                                                 }
                                             </Typography>
                                             <Typography  color="textSecondary" gutterBottom>
-                                                    {obj.getPath()}
+                                                    {obj.path}
                                             </Typography>
                                             <Grid container spacing={3} >
                                                 <Grid item xs={7} ></Grid>
                                                 <Grid item xs>
                                                     <Typography color={"textSecondary"} gutterBottom variant="caption">
-                                                        作成日: {obj.getCreatedAt().toLocaleDateString()}
+                                                        作成日: {obj.createdAt}
                                                     </Typography>
                                                 </Grid>
                                                 <Grid item xs>
                                                     <Typography color={"textSecondary"} gutterBottom variant="caption">
-                                                        更新日: {obj.getUpdatedAt().toLocaleDateString()}
+                                                        更新日: {obj.updatedAt}
                                                     </Typography>
                                                 </Grid>
                                             </Grid>
@@ -204,7 +193,7 @@ const LinkView: React.FC = () => {
                                     </Link>
                                 </Card>
                             </Grid>
-                            <Grid item xs sm md lg xl key={`sub_card_${obj.getId()}`}>
+                            <Grid item xs sm md lg xl key={`sub_card_${obj.id}`}>
                                 <CardContent>
                                     <Grid container spacing={3}>
                                         <button onClick={clickHandler}>onClick</button>

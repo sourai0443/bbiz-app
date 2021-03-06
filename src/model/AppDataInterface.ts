@@ -1,3 +1,8 @@
+/*
+* TODO: LinkViewコンポーネントでレンダリングする際に、getter/setterが認識されていないため、プロパティ全てをprivateからpublicに変更して対応
+*  それに関連して、updatedAt、createdAtをDateクラスからstringへと変更
+*/
+
 interface AppDataInterface {
     getId(): number;
 
@@ -11,13 +16,13 @@ interface AppDataInterface {
 
     setDetail(value: string): void;
 
-    getCreatedAt(): Date;
+    getCreatedAt(): string;
 
-    setCreatedAt(value: Date): void;
+    setCreatedAt(value: string): void;
 
-    getUpdatedAt(): Date;
+    getUpdatedAt(): string;
 
-    setUpdatedAt(value: Date): void;
+    setUpdatedAt(value: string): void;
 
     getPath(): string;
 
